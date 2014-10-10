@@ -2,20 +2,52 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<title>ZenQuotes</title>
 </head>
+<style>
+.red {
+	background-color: red;
+}
+</style>
+
 <body>
 	<div class="container-fluid">
-	<div class="row">
-	<div class="jumbotron text-center">
-	<h1>ZenQuote</h1>
+		<div class="row">
+			<div class="jumbotron text-center">
+				<h1>ZenQuote</h1>
+			</div>
+			</div>
+			<div class="new-quote well col-md-8 col-md-offset-2 text-center text-info">
+			<h1 id="newquote">This is where the quote will go!</h1>
+			<button class="btn btn-primary">Get Quote</button>
+		</div>
 	</div>
-	</div>
-	<div class="quote col-md-8 col-md-offset-2 text-center text-info">
-	<h1>This is where the quote will go!</h1>
-	<button class="new-quote btn btn-primary">Get Quote</button>
-	</div>
-	</div>
+
+	<!-- Javascript -->
+	<script type="text/javascript">
+$(document).ready(function() {
+
+	// var button = $('.btn');
+	 var newQuote = $('#newquote');
+
+	// button.click(function(){
+	// 	newQuote.html("Hi I'm the new quote.");
+	// });
+
+	renderQuote = function(data) {
+		newQuote.html(data);
+	};
+	getQuote = function() {
+		$.get('https://api.github.com/zen',renderQuote)
+	}
+	$('.btn').click(function() {
+		getQuote();
+	});
+
+});
+	</script>
+
 </body>
 </html>
